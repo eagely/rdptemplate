@@ -1,1 +1,101 @@
 \ProvidesPackage{rdp}
+\RequirePackage[automark]{scrlayer-scrpage}
+\RequirePackage{graphicx}
+
+
+\def\@school{HTBLuVA St. Pölten}
+\providecommand{\school}[1]{\gdef\@school{#1}}
+\def\@department{Elektronik und technische Informatik}
+\providecommand{\department}[1]{\gdef\@department{#1}}
+\def\@subdepartment{Specializations in Embedded- \& Wireless Systems}
+\providecommand{\subdepartment}[1]{\gdef\@subdepartment{#1}}
+\def\@session{2025/26}
+\providecommand{\session}[1]{\gdef\@session{#1}}
+\def\@note{}
+\providecommand{\note}[1]{\gdef\@note{#1}}
+
+\renewcommand{\titlefont}{\sffamily}
+\providecommand{\place}[1]{\gdef\@place{#1}}
+\providecommand{\professor}[1]{\gdef\@professor{#1}}
+
+\setlength{\parindent}{0pt}
+\def\sfdefault{phv}
+\def\chapterpagestyle{empty}
+\clearpairofpagestyles
+\ihead{\headmark}
+\ohead{\pagemark}
+\ifoot{\@title}
+\cfoot{\@note}
+\ofoot{\@author}
+\KOMAoptions{headsepline=.5pt, footsepline=.5pt}
+
+\renewcommand\maketitle{
+    \begin{titlepage}
+        \vspace*{-15mm}
+        \begin{minipage}[t]{\textwidth}
+            \begin{minipage}[c]{0.1\textwidth}
+                \hspace*{-5mm}
+                \includegraphics[width=1.5\linewidth]{assets/htl.png}
+            \end{minipage}
+            \begin{minipage}[c]{0.8\textwidth}
+                \centering
+                {\bfseries\sffamily\large\@school}\\
+                \vspace{1.5mm}
+                {\bfseries\sffamily\small\@department}\\
+                \vspace{1.5mm}
+                {\sffamily\scriptsize\@subdepartment}
+            \end{minipage}%
+            \begin{minipage}[c]{0.1\textwidth}
+                \hspace*{-2mm}
+                \includegraphics[width=1.5\linewidth]{assets/htl-bbs.png}
+            \end{minipage}
+        \end{minipage}
+        \rule{\textwidth}{0.2pt}
+
+        \null\vfill\vfill
+
+        \begin{center}
+            \vskip 10em
+            {\bfseries\sffamily\Huge DIPLOMA THESIS\par \vskip 1em}
+            {\titlefont\huge \@title\par}
+            \vskip 1em
+            {\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
+            \vskip 2em%
+            {\Large \publishers \par}
+        \end{center}
+
+        \vfill\vfill
+        {\sffamily
+        \begin{tabular}[t]{l}
+            Performed in \@session\ by:\\[2ex]
+            \@author
+        \end{tabular}
+        \hfill
+        \begin{tabular}[t]{l}
+            Supervisors:\\[2ex]
+            \@professor
+        \end{tabular}
+        }
+
+        \vskip 2em
+        \vspace*{15mm}
+        {\sffamily \place, on \@date}
+
+        \rule{\textwidth}{0.2pt}
+        \vskip 2em
+        {\sffamily\tabcolsep 0pt
+        \begin{minipage}[t]{\textwidth}
+            \begin{tabular}[t]{l}
+                Submission Statement:\\
+                Date:
+            \end{tabular}
+            \hfill
+            \begin{tabular}[t]{l}
+                Supervisor:
+            \end{tabular}
+        \end{minipage}
+        }
+        \par
+        \vfill
+    \end{titlepage}
+    }
