@@ -13,12 +13,43 @@
 \def\@note{}
 \newcommand{\note}[1]{\gdef\@note{#1}}
 \newcommand{\place}[1]{\gdef\@place{#1}}
-\newcommand{\professor}[1]{\gdef\@professor{#1}}
-\newcommand{\candidate}
+\newcommand{\handindate}[1]{\gdef\@handindate{#1}}
 
-\renewcommand{\titlefont}{\sffamily}
+\newcounter{candidatecount}
+\newcommand{\candidatetopiclist}{}
+\newcommand{\candidatelist}{}
+\newcommand{\signaturelist}{}
+
+\newcommand{\candidate}[2]{
+    \stepcounter{candidatecount}
+    \expandafter\def\expandafter\candidatetopiclist\expandafter{\candidatetopiclist
+        \item \textbf{#1}: #2
+    }
+    \expandafter\def\expandafter\candidatelist\expandafter{\candidatelist
+        #1\ifnum\value{candidatecount}=1\else\\\fi
+    }
+    \expandafter\def\expandafter\signaturelist\expandafter{\signaturelist
+        \sigentry{#1}
+    }
+}
+
+\newcommand{\sigentry}[1]{
+    \noindent
+    \textbf{#1}\hspace{1cm}\hrulefill
+    \ifnum\value{candidatecount}=1\else\\[2cm]\fi
+}
+
+\newcounter{supervisorcount}
+\newcommand{\supervisorlist}{}
+
+\newcommand{\supervisor}[1]{
+    \stepcounter{supervisorcount}
+    \expandafter\def\expandafter\supervisorlist\expandafter{\supervisorlist
+        #1\ifnum\value{supervisorcount}=1\else\\\fi
+    }
+}
+
 \setlength{\parindent}{0pt}
-\def\sfdefault{phv}
 \def\chapterpagestyle{empty}
 \clearpairofpagestyles
 \ihead{\headmark}
@@ -38,11 +69,11 @@
             \end{minipage}
             \begin{minipage}[c]{0.8\textwidth}
                 \centering
-                {\bfseries\sffamily\large\@school}\\
+                {\bfseries\large\@school}\\
                 \vspace{1.5mm}
-                {\bfseries\sffamily\small\@department}\\
+                {\bfseries\small\@department}\\
                 \vspace{1.5mm}
-                {\sffamily\scriptsize\@subdepartment}
+                {\scriptsize\@subdepartment}
             \end{minipage}%
             \begin{minipage}[c]{0.1\textwidth}
                 \hspace*{-2mm}
@@ -55,58 +86,62 @@
 
         \begin{center}
             \vskip 10em
-            {\bfseries\sffamily\Huge DIPLOMA THESIS\par \vskip 1em}
-            {\titlefont\huge \@title\par}
+            {\bfseries\Huge DIPLOMA THESIS\par \vskip 1em}
+            {\huge \@title\par}
             \vskip 1em
-            {\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
+            {\ifx\@subtitle\@empty\else\@subtitle\par\fi}%
             \vskip 2em%
             {\Large \publishers \par}
         \end{center}
 
         \vfill\vfill
-        {\sffamily
+        {\tabcolsep 0pt
             \begin{tabular}[t]{l}
                 Performed in \@session\ by:\\[2ex]
-                \@author
+                \candidatelist
             \end{tabular}
             \hfill
             \begin{tabular}[t]{l}
                 Supervisors:\\[2ex]
-                \@professor
+                \supervisorlist
             \end{tabular}
         }
 
         \vskip 2em
         \vspace*{15mm}
-        {\sffamily \place, on \@date}
+        {\@place, on \@handindate}
 
         \rule{\textwidth}{0.2pt}
         \vskip 2em
-        {\sffamily\tabcolsep 0pt
-            \begin{minipage}[t]{\textwidth}
+        {\tabcolsep 0pt
+
+        \begin{minipage}[t]{\textwidth}
+            \begin{minipage}[t]{0.8\textwidth}
                 \begin{tabular}[t]{l}
                     Submission Statement:\\
                     Date:
                 \end{tabular}
                 \hfill
                 \begin{tabular}[t]{l}
-                    Supervisor:
+                    Supervisors:
                 \end{tabular}
             \end{minipage}
+        \end{minipage}
         }
         \par
         \vfill
     \end{titlepage}
+    \cleardoublepage
 }
+
 \newenvironment{affidavit}{
     \thispagestyle{empty}
-    \null\vfill
     \section*{Affidavit}
 
-The undersigned candidates have chosen to prepare a diploma thesis
-with the following task description in accordance with § 34 Abs. 3 Z 1 and § 37 Abs. 2 Z 2 of the Schulunterrichtsgesetz
-in conjunction with the provisions of the "Examination Regulations BMHS, Educational Institutions",
-Federal Law Gazette II No. 177/2012 as amended.
+    The undersigned candidates have chosen to prepare a diploma thesis
+    with the following task description in accordance with § 34 Abs. 3 Z 1 and § 37 Abs. 2 Z 2 of the Schulunterrichtsgesetz
+    in conjunction with the provisions of the "Examination Regulations BMHS, Educational Institutions",
+    Federal Law Gazette II No. 177/2012 as amended.
 
     \vspace{1cm}
     \textbf{\@title}
@@ -117,20 +152,26 @@ Federal Law Gazette II No. 177/2012 as amended.
     Individual tasks within the overall project:
 
     \begin{itemize}
-        \item TODO: This needs to be a variable \textbf{Task}
-        \item TODO: This needs to be a variable \textbf{Task}
-        \item TODO: This needs to be a variable \textbf{Task}
-        \item TODO: This needs to be a variable \textbf{Task}
+        \candidatetopiclist
     \end{itemize}
 
     The candidates acknowledge that the diploma thesis must be worked on and completed independently and outside of class time, although class results may be incorporated if appropriately cited as such. 
     \newline
     \newline
-    The complete diploma thesis must be submitted digitally and in two printed copies to the supervising teacher no later than \textbf{02.04.2021}.
+    The complete diploma thesis must be submitted digitally and in two printed copies to the supervising teacher no later than \textbf{\@handindate}.
     \newline
     \newline
     The candidates further acknowledge that cancellation of the diploma thesis is not possible.
-}{
+    \newline
+    \vspace{2cm}
+    \par
+    \signaturelist
+    \ifodd\value{candidatecount}
+        \begin{minipage}[t]{0.45\textwidth}
+        \end{minipage}
+    \fi
+}
+{
     \vspace{2cm}
     \vfill
     \newpage
