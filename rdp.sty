@@ -1,6 +1,8 @@
 \ProvidesPackage{rdp}
 \RequirePackage[automark]{scrlayer-scrpage}
 \RequirePackage{graphicx}
+\RequirePackage[backend=bibtex,style=numeric]{biblatex}
+\addbibresource{references.bib}
 
 \def\@school{HTBLuVA St. Pölten}
 \newcommand{\school}[1]{\gdef\@school{#1}}
@@ -14,6 +16,8 @@
 \newcommand{\note}[1]{\gdef\@note{#1}}
 \newcommand{\place}[1]{\gdef\@place{#1}}
 \newcommand{\handindate}[1]{\gdef\@handindate{#1}}
+\renewcommand{\chaptermarkformat}{\thechapter.\enskip}
+\renewcommand{\chapterformat}{\thechapter.\enskip}
 
 \newcounter{candidatecount}
 \newcommand{\candidatetopiclist}{}
