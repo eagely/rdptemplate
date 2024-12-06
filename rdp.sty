@@ -1,6 +1,11 @@
 \ProvidesPackage{rdp}
 \RequirePackage[automark]{scrlayer-scrpage}
 \RequirePackage{graphicx}
+\RequirePackage{tabularx}
+\RequirePackage{csvsimple}
+\RequirePackage{fp}
+\RequirePackage{etoolbox}
+\RequirePackage{xparse}
 \RequirePackage[backend=bibtex,style=numeric]{biblatex}
 \addbibresource{references.bib}
 
@@ -18,12 +23,10 @@
 \newcommand{\handindate}[1]{\gdef\@handindate{#1}}
 \renewcommand{\chaptermarkformat}{\thechapter.\enskip}
 \renewcommand{\chapterformat}{\thechapter.\enskip}
-
 \newcounter{candidatecount}
 \newcommand{\candidatetopiclist}{}
 \newcommand{\candidatelist}{}
 \newcommand{\signaturelist}{}
-
 \newcommand{\candidate}[2]{
     \stepcounter{candidatecount}
     \expandafter\def\expandafter\candidatetopiclist\expandafter{\candidatetopiclist
@@ -36,16 +39,13 @@
         \sigentry{#1}
     }
 }
-
 \newcommand{\sigentry}[1]{
     \noindent
     \textbf{#1}\hspace{1cm}\hrulefill
     \ifnum\value{candidatecount}=1\else\\[2cm]\fi
 }
-
 \newcounter{supervisorcount}
 \newcommand{\supervisorlist}{}
-
 \newcommand{\supervisor}[1]{
     \stepcounter{supervisorcount}
     \expandafter\def\expandafter\supervisorlist\expandafter{\supervisorlist
@@ -179,4 +179,24 @@
     \vspace{2cm}
     \vfill
     \newpage
+}
+
+
+\newcommand{\timeentries}{}
+\newcounter{totalHours}
+
+\newcommand{\addtimeentry}[3]{
+  \g@addto@macro\timeentries{%
+    #1 & #2 & #3 \\ 
+    \addtocounter{totalHours}{#3}%
+  }
+}
+
+\newcommand{\printtimeentries}{
+  \setcounter{totalHours}{0}
+  \begin{tabular}{l l r}
+    \textbf{Date} & \textbf{Task} & \textbf{Hours} \\ \hline
+    \timeentries
+    && \textbf{Total: \thetotalHours h} \\
+  \end{tabular}
 }
