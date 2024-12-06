@@ -1,20 +1,33 @@
-\documentclass[paper=a4, 12pt]{scrreport}
+\documentclass[paper=a4, 12pt]{scrbook}
 \usepackage{rdp}
 \usepackage[scale=0.72, twoside, bindingoffset=2mm]{geometry}
 \usepackage{graphicx}
 
-\author{Name1, Name2}
-\title{Title}
+\author{Artemiy Smirnov, Lukas Serloth}
+\title{Voice Assistant}
 \note{CC0}
-\subtitle{insert subtitle here}
-\professor{insert professor here}
+\subtitle{Add subtitle}
+\supervisor{Wolfgang Uriel Kuran}
+\supervisor{Gerald Gruber}
+\candidate{Artemiy Smirnov}{Software Backend}
+\candidate{Lukas Serloth}{Hardware Design and Assembly}
+\place{St. Pölten}
+\handindate{04.04.2025}
 
 \begin{document}
+\frontmatter
 \maketitle
 
+		
 \begin{affidavit}
 \end{affidavit}
 
 \tableofcontents
+
+\mainmatter
+\include{topics/introduction}
+
+\include{topics/results}
+
 
 \end{document}
