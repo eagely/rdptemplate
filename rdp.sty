@@ -26,6 +26,9 @@
     \expandafter\def\expandafter\candidatetopiclist\expandafter{\candidatetopiclist
         \item \textbf{#1}: #2
     }
+    \expandafter\def\expandafter\candidatelist\expandafter{\candidatelist
+        #1\ifnum\value{candidatecount}=1\else\\\fi
+    }
     \expandafter\def\expandafter\signaturelist\expandafter{\signaturelist
         \sigentry{#1}
     }
