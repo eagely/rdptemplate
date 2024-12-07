@@ -5,20 +5,18 @@
 \addbibresource{references.bib}
 \NeedsTeXFormat{LaTeX2e}
 
-\def\@school{HTBLuVA St. Pölten}
+\def\@school{}
 \newcommand{\school}[1]{\gdef\@school{#1}}
-\def\@department{Higher Institute for Electronics and Technical Informatics}
+\def\@department{}
 \newcommand{\department}[1]{\gdef\@department{#1}}
-\def\@subdepartment{Specializations in Embedded and Wireless Systems}
+\def\@subdepartment{}
 \newcommand{\subdepartment}[1]{\gdef\@subdepartment{#1}}
-\def\@session{five/26}
+\def\@session{}
 \newcommand{\session}[1]{\gdef\@session{#1}}
 \def\@note{}
 \newcommand{\note}[1]{\gdef\@note{#1}}
 \newcommand{\place}[1]{\gdef\@place{#1}}
 \newcommand{\handindate}[1]{\gdef\@handindate{#1}}
-\renewcommand{\chaptermarkformat}{\thechapter.\enskip}
-\renewcommand{\chapterformat}{\thechapter.\enskip}
 \newcounter{candidatecount}
 \newcommand{\candidatetopiclist}{}
 \newcommand{\candidatelist}{}
@@ -27,9 +25,6 @@
     \stepcounter{candidatecount}
     \expandafter\def\expandafter\candidatetopiclist\expandafter{\candidatetopiclist
         \item \textbf{#1}: #2
-    }
-    \expandafter\def\expandafter\candidatelist\expandafter{\candidatelist
-        #1\ifnum\value{candidatecount}=1\else\\\fi
     }
     \expandafter\def\expandafter\signaturelist\expandafter{\signaturelist
         \sigentry{#1}
@@ -52,12 +47,10 @@
 \setlength{\parindent}{0pt}
 \def\chapterpagestyle{empty}
 \clearpairofpagestyles
+
 \ihead{\headmark}
 \ohead{\pagemark}
-\ifoot{\@title}
-\cfoot{\@note}
-\ofoot{\@author}
-\KOMAoptions{headsepline=.5pt, footsepline=.5pt}
+\KOMAoptions{headsepline=.5pt}
 
 \renewcommand\maketitle{
     \begin{titlepage}
@@ -138,10 +131,7 @@
     \thispagestyle{empty}
     \section*{Affidavit}
 
-    The undersigned candidates have chosen to prepare a diploma thesis
-    with the following task description in accordance with § 34 Abs. 3 Z 1 and § 37 Abs. 2 Z 2 of the Schulunterrichtsgesetz
-    in conjunction with the provisions of the "Examination Regulations BMHS, Educational Institutions",
-    Federal Law Gazette II No. 177/2012 as amended.
+The undersigned candidates have chosen to prepare a diploma thesis with the following task description in accordance with the Schulunterrichtsgesetz (School Education Act) § 34 Abs. 3 Z 1 and § 37 Abs. 2 Z 2 \cite{schug}, in conjunction with the provisions of the Prüfungsordnung BMHS (Examination Regulations for Vocational Middle and Higher Schools), Federal Law Gazette II No. 177/2012 \cite{pruefung}, as amended
 
     \vspace{1cm}
     \textbf{\@title}
