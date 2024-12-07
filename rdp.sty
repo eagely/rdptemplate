@@ -1,7 +1,19 @@
 \ProvidesPackage{rdp}
 \RequirePackage[automark]{scrlayer-scrpage}
 \RequirePackage{graphicx}
+\RequirePackage{xcolor}
 \RequirePackage[backend=bibtex,style=numeric]{biblatex}
+\RequirePackage[colorlinks=true,
+linkcolor=black,
+filecolor=magenta,      
+urlcolor=blue,
+citecolor=blue,
+pdftex,
+bookmarks=true,
+bookmarksopen=false,
+pdfpagemode=UseOutlines,
+plainpages=false]
+{hyperref}
 \addbibresource{references.bib}
 \NeedsTeXFormat{LaTeX2e}
 
@@ -129,7 +141,7 @@
     \cleardoublepage
 }
 
-\newenvironment{affidavit}{
+\newcommand{\affidavit}{
     \thispagestyle{empty}
     \section*{Affidavit}
 
@@ -162,11 +174,9 @@ The undersigned candidates have chosen to prepare a diploma thesis with the foll
         \begin{minipage}[t]{0.45\textwidth}
         \end{minipage}
     \fi
-}
-{
     \vspace{2cm}
     \vfill
-    \newpage
+    \cleardoublepage
 }
 \newcommand{\timeentriescurrent}{}
 \newcommand{\timeentriesnext}{}
