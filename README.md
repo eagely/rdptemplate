@@ -29,10 +29,6 @@ A flexible LaTeX template for diploma theses, designed for HTL St. Pölten but a
 
 Edit these fields in your main.tex:
 ```latex
-\documentclass[paper=a4, 12pt,oneside]{scrbook}
-\usepackage{rdp}
-\usepackage[scale=0.72, twoside, bindingoffset=2mm]{geometry}
-
 \school{HTBLuVA St. Pölten}
 \department{Higher Institute for Electronics and Technical Informatics}
 \subdepartment{Specializations in Embedded and Wireless Systems}
