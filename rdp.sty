@@ -1,13 +1,9 @@
 \ProvidesPackage{rdp}
 \RequirePackage[automark]{scrlayer-scrpage}
 \RequirePackage{graphicx}
-\RequirePackage{tabularx}
-\RequirePackage{csvsimple}
-\RequirePackage{fp}
-\RequirePackage{etoolbox}
-\RequirePackage{xparse}
 \RequirePackage[backend=bibtex,style=numeric]{biblatex}
 \addbibresource{references.bib}
+\NeedsTeXFormat{LaTeX2e}
 
 \def\@school{HTBLuVA St. Pölten}
 \newcommand{\school}[1]{\gdef\@school{#1}}
@@ -15,7 +11,7 @@
 \newcommand{\department}[1]{\gdef\@department{#1}}
 \def\@subdepartment{Specializations in Embedded and Wireless Systems}
 \newcommand{\subdepartment}[1]{\gdef\@subdepartment{#1}}
-\def\@session{2025/26}
+\def\@session{five/26}
 \newcommand{\session}[1]{\gdef\@session{#1}}
 \def\@note{}
 \newcommand{\note}[1]{\gdef\@note{#1}}
@@ -180,23 +176,32 @@
     \vfill
     \newpage
 }
-
-
-\newcommand{\timeentries}{}
+\newcommand{\timeentriescurrent}{}
+\newcommand{\timeentriesnext}{}
 \newcounter{totalHours}
-
 \newcommand{\addtimeentry}[3]{
-  \g@addto@macro\timeentries{%
-    #1 & #2 & #3 \\ 
-    \addtocounter{totalHours}{#3}%
-  }
+  \ifnum#1<6
+    \g@addto@macro\timeentriesnext{%
+      #1 & #2 & #3 \addtocounter{totalHours}{#3}\\\hline
+    }
+  \else
+    \g@addto@macro\timeentriescurrent{%
+      #1 & #2 & #3 \addtocounter{totalHours}{#3}\\\hline
+    }
+  \fi
 }
-
 \newcommand{\printtimeentries}{
   \setcounter{totalHours}{0}
-  \begin{tabular}{l l r}
-    \textbf{Date} & \textbf{Task} & \textbf{Hours} \\ \hline
-    \timeentries
-    && \textbf{Total: \thetotalHours h} \\
+  \begin{tabular}{|c|l|r|}
+    \hline
+    \multicolumn{3}{|c|}{2024} \\\hline
+    \textbf{Week} & \textbf{Task Description} & \textbf{Hours} \\\hline
+    \timeentriescurrent
+    \multicolumn{3}{c}{} \\\hline
+    \multicolumn{3}{|c|}{2025} \\\hline
+    \textbf{Week} & \textbf{Task Description} & \textbf{Hours} \\\hline
+    \timeentriesnext
+    \multicolumn{3}{c}{} \\\hline
+    \multicolumn{2}{|l|}{\textbf{Total}} & \textbf{\thetotalHours} \\\hline
   \end{tabular}
 }
